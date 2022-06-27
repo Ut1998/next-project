@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const CommentsPage = () => {
   const [comments, setComments] = useState([]);
   const [inputComment, setInputComment] = useState("");
 
-  const fetchComments = async () => {
-    const response = await fetch("/api/comments");
-    const data = await response.json();
-    setComments(data);
-  };
+  useEffect(() => {
+    const fetchComments = async () => {
+      const response = await fetch("/api/comments");
+      const data = await response.json();
+      setComments(data);
+    };
+    fetchComments();
+  }, [comments]);
 
   const handleChange = (event) => {
     setInputComment(event.target.value);
@@ -23,7 +26,18 @@ const CommentsPage = () => {
       },
     });
     const data = await response.json();
-    console.log(data);
+    console.log("new comment data", data);
+    comments.push(data);
+    console.log(comments);
+    setComments(comments);
+  };
+
+  const deleteComment = async (commentId) => {
+    const response = await fetch(`/api/comments/${commentId}`, {
+      method: "DELETE",
+    });
+    const data = response.json();
+    console.log("delete request", data);
   };
 
   return (
@@ -32,12 +46,16 @@ const CommentsPage = () => {
       <button onClick={addComment}>Add comment</button>
       <br />
       <br />
-      <button onClick={fetchComments}>Load comments</button>
+      <button>Load comments</button>
       {comments.map((comment) => {
         return (
           <ul key={comment.id}>
             <li>
               {comment.id} {comment.text}
+              &nbsp;&nbsp;
+              <button onClick={() => deleteComment(comment.id)}>
+                Delete comment
+              </button>
             </li>
           </ul>
         );
