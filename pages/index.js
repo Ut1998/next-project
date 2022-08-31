@@ -10,7 +10,7 @@ const Home = () => {
   };
 
   return (
-    <>
+    <div className="container">
       <h1>Home page</h1>
       <Link href="/about">
         <a>About</a>
@@ -20,16 +20,19 @@ const Home = () => {
         <a>Products</a>
       </Link>
       <br />
+      <br />
       <button onClick={handleClick}>Place order</button>
+      <br />
       <br />
       <Link href="/users">
         <a>Users</a>
       </Link>
       <br />
+      <br />
       <Link href="/posts">
         <a>Posts</a>
       </Link>
-    </>
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-const Doc = () => {
+const Docs = () => {
   const route = useRouter();
   const { params = [] } = route.query;
   console.log(params);
@@ -8,7 +8,7 @@ const Doc = () => {
   if (params.length === 2) {
     return (
       <h2>
-        Viewing docs for {params[0]} and concept {params[1]}{" "}
+        Viewing docs for feature {params[0]} and concept {params[1]}{" "}
       </h2>
     );
   } else if (params.length === 1) {
@@ -17,4 +17,4 @@ const Doc = () => {
   return <h1>Docs Home page</h1>;
 };
 
-export default Doc;
+export default Docs;
